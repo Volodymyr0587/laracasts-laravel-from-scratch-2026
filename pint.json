@@ -1,0 +1,17 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "concat_space": {
+            "spacing": "one"
+        },
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_functions": false,
+            "import_constants": false
+        },
+        "fully_qualified_strict_types": false,
+        "phpdoc_to_param_type": false,
+        "phpdoc_to_return_type": false,
+        "phpdoc_scalar": false
+    }
+}
