@@ -11,7 +11,7 @@
                 <form action="/logout" method="POST">
                     @csrf
 
-                    <button>Log Out</button>
+                    <button data-test="logout-button">Log Out</button>
                 </form>
             @else
                 <a href="/login">Sign In</a>
