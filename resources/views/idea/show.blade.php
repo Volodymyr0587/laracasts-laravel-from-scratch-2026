@@ -30,8 +30,11 @@
             </div>
 
             <x-card class="mt-6">
-                <div class="text-foreground max-w-none cursor-pointer">
-                    {{ $idea->description }}
+                <div @class([
+                    "text-foreground max-w-none",
+                    "text-xs italic" => !$idea->description
+                ])>
+                    {{ $idea->description ?? 'No description was provided.' }}
                 </div>
             </x-card>
 
