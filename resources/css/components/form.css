@@ -21,6 +21,7 @@ label {
 
 .input:focus-visible {
     outline: 0;
+    border: 2px solid var(--color-primary);
     box-shadow: 0 0 0 calc(var(--spacing) * 0.5) var(--color-background) 0 0 0
         calc(var(--spacing) * 1) var(--color-primary);
 }
@@ -50,6 +51,7 @@ label {
 
 .textarea:focus-visible {
     outline: 0;
+    border: 2px solid var(--color-primary);
     box-shadow: 0 0 0 calc(var(--spacing) * 0.5) var(--color-background) 0 0 0
         calc(var(--spacing) * 1) var(--color-primary);
 }
