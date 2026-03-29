@@ -9,7 +9,7 @@ it('registers a user', function () {
         ->fill('password', 'password123')
         ->fill('password_confirmation', 'password123')
         ->click('Create Account')
-        ->assertPathIs('/ideas');
+        ->assertRoute('idea.index');
 
     $this->assertAuthenticated();
 

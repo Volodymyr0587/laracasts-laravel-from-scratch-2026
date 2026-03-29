@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Override;
 
 class Idea extends Model
 {
@@ -53,6 +54,7 @@ class Idea extends Model
         return $this->hasMany(Step::class);
     }
 
+    #[Override]
     protected static function booted()
     {
         // Fires BEFORE the record is deleted
