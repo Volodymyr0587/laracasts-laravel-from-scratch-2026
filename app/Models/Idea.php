@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class Idea extends Model
 {
@@ -50,5 +51,18 @@ class Idea extends Model
     public function steps(): HasMany
     {
         return $this->hasMany(Step::class);
+    }
+
+    protected static function booted()
+    {
+        // Fires BEFORE the record is deleted
+        static::deleting(function ($idea) {
+            // Perform actions like deleting related files or records
+        });
+
+        // Fires AFTER the record has been deleted
+        static::deleted(function ($idea) {
+            Storage::disk('public')->delete($idea->image_path);
+        });
     }
 }

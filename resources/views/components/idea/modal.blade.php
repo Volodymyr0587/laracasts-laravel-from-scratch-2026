@@ -7,7 +7,7 @@
                     newLink: '',
                     links: @js(old('links', $idea->links ?? [])),
                     newStep: '',
-                    steps: @js(old('steps', $idea->steps->map(fn($step) => $step->description))),
+                    steps: @js(old('steps', $idea->steps->map->only(['id', 'description', 'completed']))),
                     hasImage: false,
                 }" action="{{ $idea->exists ? route('idea.update', $idea) : route('idea.store') }}" method="POST"
         :enctype="hasImage ? 'multipart/form-data' : null">
@@ -60,9 +60,12 @@
                 <fieldset class="space-y-3">
                     <legend class="label">Actionable Steps</legend>
 
-                    <template x-for="(step, index) in steps" :key="step">
+                    <template x-for="(step, index) in steps" :key="step.id || index">
                         <div class="flex gap-x-2 items-center">
-                            <input name="steps[]" x-model="step" class="input" readonly>
+                            <input :name="`steps[${index}][description]`" x-model="step.description" class="input"
+                                readonly>
+                            <input type="hidden" :name="`steps[${index}][completed]`"
+                                x-model="step.completed ? '1' : '0'" class="input" readonly>
 
                             <button type="button" aria-label="Remove step" @click="steps.splice(index, 1);"
                                 class="form-muted-icon">
@@ -75,8 +78,10 @@
                         <input x-model="newStep" type="text" id="new-step" data-test="new-step"
                             placeholder="What needs to be done?" class="input flex-1" spellcheck="false">
 
-                        <button type="button" @click="steps.push(newStep.trim()); newStep = '';"
-                            data-test="submit-new-step-button" :disabled="newStep.trim().length === 0"
+                        <button type="button" @click="
+                                steps.push({ description: newStep.trim(), completed: false }); 
+                                newStep = '';
+                            " data-test="submit-new-step-button" :disabled="newStep.trim().length === 0"
                             aria-label="Add a new step" class="form-muted-icon">
                             <x-icons.close class="rotate-45" />
                         </button>
