@@ -37,13 +37,15 @@
                 <div class="text-muted-foreground text-sm">{{ $idea->created_at->diffForHumans() }}</div>
             </div>
 
-            <x-card class="mt-6">
-                <div @class([
-                    "text-foreground max-w-none",
-                    "text-xs italic" => !$idea->description
-                ])>
-                    {{ $idea->description ?? 'No description was provided.' }}
-                </div>
+
+            <x-card class="mt-6" is="div">
+                @if ($idea->description)
+                    <div class="text-foreground max-w-none prose prose-invert">{!! $idea->formattedDescription !!}</div>
+                @else
+                    <div class="text-foreground max-w-none text-xs italic">
+                        No description was provided.
+                    </div>
+                @endif
             </x-card>
 
             @if ($idea->steps->count())
